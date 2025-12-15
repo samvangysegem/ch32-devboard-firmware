@@ -1,0 +1,3 @@
+[submodule "hardware"]
+	path = hardware
+	url = git@github.com:samvangysegem/ch32-devboard-hardware.git

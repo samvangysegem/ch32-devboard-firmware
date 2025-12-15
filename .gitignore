@@ -1,0 +1,6 @@
+# Toolchains
+toolchain/
+
+# Build artifacts
+build/
+build.*/

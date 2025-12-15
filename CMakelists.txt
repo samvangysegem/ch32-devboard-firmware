@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 4.1)
+project(ch32-devboard-firmware VERSION 0.1.0 LANGUAGES C CXX)
+
+# Add subdirectories
+#add_subdirectory(libs)
+add_subdirectory(app)

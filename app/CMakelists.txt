@@ -1,0 +1,22 @@
+# Application executable
+add_executable(${PROJECT_NAME})
+
+# Source files
+target_sources(${PROJECT_NAME} PRIVATE
+    src/start.cpp
+    src/main.cpp
+)
+
+# Linker script
+set(LINKER_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/linker/ch32v305rb.ld")
+target_link_options(${PROJECT_NAME} PRIVATE
+    -T ${LINKER_SCRIPT}
+)
+
+# Post-build: Generate objdump disassembly file
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_OBJDUMP} -d -S $<TARGET_FILE:${PROJECT_NAME}> > $<TARGET_FILE:${PROJECT_NAME}>.objdump
+    COMMENT "Generating disassembly listing: $<TARGET_FILE:${PROJECT_NAME}>.lst"
+    VERBATIM
+)
+
