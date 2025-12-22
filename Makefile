@@ -6,10 +6,15 @@ TOOLCHAIN_FILE := cmake/riscv.none.elf.cmake
 TOOLCHAIN_PATH := $(abspath toolchain/riscv-none-elf)
 
 # Project targets
-.PHONY: all config build clean
+.PHONY: all config build clean toolchain
 
 # Default target
 all: config build
+
+# Build toolchain
+toolchain:
+	git submodule update --init --recursive toolchain
+	$(MAKE) -C toolchain clean install-riscv-none-elf
 
 # Configure project
 config:

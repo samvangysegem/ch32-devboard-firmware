@@ -1,3 +1,6 @@
 [submodule "hardware"]
 	path = hardware
 	url = git@github.com:samvangysegem/ch32-devboard-hardware.git
+[submodule "toolchain"]
+	path = toolchain
+	url = git@github.com:samvangysegem/llvm-project-build.git
