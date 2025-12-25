@@ -3,9 +3,6 @@
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR riscv)
 
-# Toolchain prefix and path
-set(TOOLCHAIN_PREFIX "riscv-none-elf-")
-
 # Set the target triple
 set(TARGET_TRIPLE "riscv32-none-elf")
 
@@ -23,7 +20,7 @@ set(CMAKE_STRIP         "${TOOLCHAIN_PATH}/bin/llvm-strip")
 set(CMAKE_READELF       "${TOOLCHAIN_PATH}/bin/llvm-readelf")
 
 # Compiler and linker flags
-set(CMAKE_ASM_FLAGS "-march=rv32imac -mabi=ilp32")
+set(CMAKE_ASM_FLAGS "-march=rv32imac_zicsr -mabi=ilp32")
 
 set(CMAKE_C_FLAGS "${CMAKE_ASM_FLAGS}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffunction-sections -fdata-sections") # Dedicated function and data sections (for garbage collection)
@@ -31,6 +28,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffreestanding") # Enable freestanding envir
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-builtin") # Disable builtin functions
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mno-relax") # Disable relaxation
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mcmodel=medany") # Medium memory model
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-pic -fno-pie") # Disable position-independent code
 
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions") # Disable exceptions
