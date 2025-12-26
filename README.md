@@ -20,6 +20,14 @@ You have two options to provide a toolchain:
 
 ### Build
 
+First, ensure all external libraries are built. This step should be executed once.
+
+```bash
+make build-ext-libs
+```
+
+Next, build the firmware project.
+
 ```bash
 make build
 ``` 

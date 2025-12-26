@@ -54,9 +54,11 @@ toolchain:
 # Extern Libs
 ######################
 
-.PHONY: clean-libs config-picolibc build-picolibc clean-picolibc
+.PHONY: build-ext-libs clean-ext-libs config-picolibc build-picolibc clean-picolibc
 
-clean-libs:
+build-ext-libs: build-picolibc
+
+clean-ext-libs:
 	@rm -rf $(EXT_LIBS_BUILD_DIR)
 
 # Picolibc
