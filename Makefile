@@ -37,7 +37,7 @@ compile:
 	cmake --build $(BUILD_DIR)
 
 clean:
-	rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 ######################
 # Toolchain
@@ -60,7 +60,6 @@ clean-libs:
 	@rm -rf $(EXT_LIBS_BUILD_DIR)
 
 # Picolibc
-
 PICOLIBC_SOURCE_DIR := $(abspath libs.extern/picolibc)
 PICOLIBC_CROSS_FILE_TEMPLATE := meson/picolibc.cross.ini.in
 PICOLIBC_CROSS_FILE := $(abspath $(PICOLIBC_BUILD_DIR)/picolibc.cross.ini)

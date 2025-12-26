@@ -33,12 +33,17 @@ _start:
 
 3:
   // Configure RISC-V CSRs (Control Status Registers)
-  // TODO: Figure out what this configures
+  // ref. QingKeV4 Processor Manual, 8.1
+  // [corecfgr]
+  //     [1] - [Icdisable] (1) Disable command cache function
   li t0, 0x1f
   csrw 0xbc0, t0
 
-  // Set intsyscr (0x804): enable hardware stack and nested interrupts
-  // Value 0x0b = basic interrupt mode with hardware stack
+  // ref. QingKeV4 Processor Manual, 3.2 & 8.1
+  // [intsyscr]
+  //   [3:2] - [PMTCFG] (0b10) 4 levels of nesting, with 2 preemption bits
+  //     [1] - [INESTEN] (1) Interrupt nesting function enabled
+  //     [0] - [HWSTKEN] (1) HPE function enabled
   li t0, 0x0b
   csrw 0x804, t0
 
@@ -69,7 +74,15 @@ _start:
   call atexit
   call __libc_init_array
 
-  // Call main
+  // ref. QingKeV4 Processor Manual, 2.4
+  // ```
+  // When calling mret:
+  // - Execution resumes at address stored in `mepc`
+  // - MIE is restored to MPIE
+  // - MPP is used to restore privileged mode
+  // ```
+  // Call main via mret to activate mstatus configuration (line 54)
+  // and enable interrupt handling
   la t0, main
   csrw mepc, t0
   mret

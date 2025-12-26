@@ -26,8 +26,9 @@ set(CMAKE_C_FLAGS "${CMAKE_ASM_FLAGS}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffunction-sections -fdata-sections") # Dedicated function and data sections (for garbage collection)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffreestanding") # Enable freestanding environment
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-builtin") # Disable builtin functions
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mno-relax") # Disable relaxation
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mno-relax") # Disable linker relaxation: larger/slower code but predictable sizes and deterministic builds
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mcmodel=medany") # Medium memory model
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -msmall-data-limit=8") # Threshold for small data optimization (.sbss, .sdata)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-pic -fno-pie") # Disable position-independent code
 
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS}")
@@ -56,6 +57,7 @@ set(CMAKE_ASM_COMPILER_WORKS TRUE)
 set(CMAKE_EXECUTABLE_SUFFIX ".elf")
 
 # Warning flags
+set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wno-unused-command-line-argument")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
 
