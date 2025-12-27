@@ -4,6 +4,3 @@
 [submodule "toolchain"]
 	path = toolchain
 	url = git@github.com:samvangysegem/llvm-project-build.git
-[submodule "libs.extern/picolibc"]
-	path = libs.extern/picolibc
-	url = git@github.com:picolibc/picolibc.git

@@ -19,6 +19,9 @@ set(CMAKE_SIZE          "${TOOLCHAIN_PATH}/bin/llvm-size")
 set(CMAKE_STRIP         "${TOOLCHAIN_PATH}/bin/llvm-strip")
 set(CMAKE_READELF       "${TOOLCHAIN_PATH}/bin/llvm-readelf")
 
+# Sysroot
+set(CMAKE_SYSROOT       "${TOOLCHAIN_PATH}/riscv32-none-elf")
+
 # Compiler and linker flags
 set(CMAKE_ASM_FLAGS "-march=rv32imac_zicsr -mabi=ilp32")
 
@@ -37,11 +40,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti") # Disable RTTI
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-use-cxa-atexit") # Disable calls to _cxa_atexit
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static") # Static linking
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nostdlib") # Disable standard library linking
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nostdlib") # Don't link default libraries
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nodefaultlibs") # Avoid linking compiler-rt
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nostartfiles") # Disable standard startup files
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mno-relax") # Disable relaxation
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fuse-ld=lld") # Use LLVM's lld linker
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--gc-sections") # Garbage collect unused sections
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=${CMAKE_PROJECT_NAME}.map") # Generate map file
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc -lm -lc++") # Explicitly link picolibc, libm, and libc++
 
 # Target-specific compiler options
 set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
