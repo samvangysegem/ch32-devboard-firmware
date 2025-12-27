@@ -19,10 +19,25 @@ target_link_options(${PROJECT_NAME} PRIVATE
   -T ${LINKER_SCRIPT}
 )
 
-# Post-build: Generate objdump disassembly file
+# Post Build Steps
+
+# Generate disassembly
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_OBJDUMP} -D -S $<TARGET_FILE:${PROJECT_NAME}> > $<TARGET_FILE:${PROJECT_NAME}>.objdump
-  COMMENT "Generating disassembly listing: $<TARGET_FILE:${PROJECT_NAME}>.lst"
+  COMMAND ${CMAKE_OBJDUMP} -D -S $<TARGET_FILE:${PROJECT_NAME}> > ${PROJECT_NAME}.lst
+  COMMENT "Generating disassembly listing"
   VERBATIM
 )
 
+# Generate binary file for flashing
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  COMMAND ${CMAKE_OBJCOPY} -O binary -R .bss -R .stack $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_NAME}.bin
+  COMMENT "Generating binary file"
+  VERBATIM
+)
+
+# Print size information
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+  COMMAND ${CMAKE_OBJDUMP} -h $<TARGET_FILE:${PROJECT_NAME}>
+  COMMENT "Memory usage:"
+  VERBATIM
+)

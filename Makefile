@@ -19,8 +19,7 @@ config:
 	-@mkdir $(BUILD_DIR)
 	cmake -S . -B $(BUILD_DIR) -G Ninja \
     --toolchain $(TOOLCHAIN_FILE) \
-    -DTOOLCHAIN_PATH=$(TOOLCHAIN_PATH) \
-    -DCMAKE_VERBOSE_MAKEFILE=ON
+    -DTOOLCHAIN_PATH=$(TOOLCHAIN_PATH)
 
 build: config
 	cmake --build $(BUILD_DIR)

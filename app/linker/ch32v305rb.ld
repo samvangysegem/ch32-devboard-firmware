@@ -9,7 +9,7 @@
  */
 
 /* Stack configuration */
-__stack_size = 0x1000; /* 4KB */
+__stack_size = 0x100; /* 256B */
 
 /* Memory segments */
 MEMORY
