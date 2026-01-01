@@ -8,25 +8,17 @@ This repository contains a firmware template, including toolchain, startup and l
 
 You have two options to provide a toolchain:
 
-1. **Build from source** (verified on macOS only):
+1. **Build from source**
    ```bash
    make toolchain
    ```
 
-2. **Symlink llvm toolchain** (tested with 21.x release):
+2. **Symlink llvm toolchain**\
    ```bash
-   ln -s /path/to/your/llvm toolchain/riscv-none-elf
+   ln -s /path/to/your/llvm toolchain/install
    ```
 
-### Build
-
-First, ensure all external libraries are built. This step should be executed once.
-
-```bash
-make build-ext-libs
-```
-
-Next, build the firmware project.
+### Firmware
 
 ```bash
 make build
