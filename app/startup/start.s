@@ -68,6 +68,8 @@ _start:
   ori t0, t0, 3
   csrw mtvec, t0
 
+  // TODO: System initialization call?
+
   // Register all global C++ destructors to be called at program exit
   // Call all global C++ constructors
   la a0,__libc_fini_array
