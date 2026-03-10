@@ -4,5 +4,8 @@
 build/
 build.*/
 
+# OpenOCD
+openocd.wch/
+
 # Clangd
 .cache/

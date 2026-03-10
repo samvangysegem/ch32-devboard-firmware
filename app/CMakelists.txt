@@ -23,7 +23,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 
 # Generate disassembly
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  COMMAND ${CMAKE_OBJDUMP} -D -S $<TARGET_FILE:${PROJECT_NAME}> > ${PROJECT_NAME}.lst
+  COMMAND ${CMAKE_OBJDUMP} -d -S $<TARGET_FILE:${PROJECT_NAME}> > ${PROJECT_NAME}.lst
   COMMENT "Generating disassembly listing"
   VERBATIM
 )
